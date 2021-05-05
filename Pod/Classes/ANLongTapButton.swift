@@ -100,7 +100,8 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
         circleLayer!.fillColor = UIColor.clear.cgColor
         circleLayer!.strokeColor = barColor.cgColor
         circleLayer!.lineWidth = barWidth
-        
+        circleLayer?.strokeEnd = 1.0
+
         let animation = strokeEndAnimation()
         circleLayer!.add(animation, forKey: drawCircleAnimationKey)
         self.layer.addSublayer(circleLayer!)
@@ -120,6 +121,11 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
             let reverseAnimation = strokeReverseAnimation(fromValue: currentStrokeValue)
             reverseAnimation.delegate = self
             circleLayer.pauseAnimation()
+
+            // https://stackoverflow.com/questions/26578023/animate-drawing-of-a-circle
+            // Set the circleLayer's strokeEnd property to 1.0 now so that it's the
+            // Right value when the animation ends
+            circleLayer.strokeEnd = 0.0
             circleLayer.add(reverseAnimation, forKey: undrawCircleAnimationKey)
             circleLayer.removeAnimation(forKey: drawCircleAnimationKey)
             circleLayer.resumeAnimation()
