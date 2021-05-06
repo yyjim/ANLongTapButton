@@ -48,7 +48,21 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
             drawProgressBar(context, center: center, radius: radius)
         }
     }
-    
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        addTarget(self, action: #selector(start(_:forEvent:)), for: .touchDown)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchUpInside)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchCancel)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchDragExit)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchDragOutside)
+    }
+
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     open override func awakeFromNib()
     {
         super.awakeFromNib()
