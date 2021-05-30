@@ -12,6 +12,7 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
 {
     @IBInspectable open var barWidth: CGFloat = 10
     @IBInspectable open var barColor: UIColor = UIColor.yellow
+    open var barColors: (from: UIColor, to: UIColor)?
     @IBInspectable open var barTrackColor: UIColor = UIColor.gray
     @IBInspectable open var bgCircleColor: UIColor = UIColor.blue
     @IBInspectable open var startAngle: CGFloat = -90
@@ -59,9 +60,13 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
         addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchDragOutside)
     }
 
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
+
+//    required public init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
     open override func awakeFromNib()
     {
@@ -221,14 +226,36 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
     
     // MARK: - Private
     
-    private func strokeEndAnimation() -> CABasicAnimation
-    {
-        return strokeAnimation(fromValue: 0, toValue: 1, duration: timePeriod)
+    private func strokeEndAnimation() -> CAAnimation {
+        var animations = [CAAnimation]()
+        animations.append(strokeAnimation(fromValue: 0, toValue: 1, duration: timePeriod))
+        if let barColors = barColors {
+            animations.append(strokeColorAnimation(
+                from: barColors.from, to: barColors.to, duration: timePeriod
+            ))
+        }
+
+        let group = CAAnimationGroup()
+        group.duration = timePeriod
+        group.animations = animations
+        return group
     }
     
-    private func strokeReverseAnimation(fromValue: Any) -> CABasicAnimation
-    {
-        return strokeAnimation(fromValue: fromValue, toValue: 0, duration: reverseAnimationTimePeriod)
+    private func strokeReverseAnimation(fromValue: CGFloat) -> CAAnimation {
+        var animations = [CAAnimation]()
+        animations.append(strokeAnimation(fromValue: fromValue, toValue: 0, duration: reverseAnimationTimePeriod))
+        if let barColors = barColors {
+            let from = barColors.from.interpolateRGBColorTo(end: barColors.to, fraction: fromValue)
+            let to = barColors.from
+            animations.append(strokeColorAnimation(
+                from: from, to: to, duration: reverseAnimationTimePeriod
+            ))
+        }
+
+        let group = CAAnimationGroup()
+        group.duration = reverseAnimationTimePeriod
+        group.animations = animations
+        return group
     }
     
     private func strokeAnimation(fromValue: Any, toValue: Any, duration: TimeInterval) -> CABasicAnimation {
@@ -238,7 +265,17 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
         animation.fromValue = fromValue
         animation.toValue = toValue
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        
+
+        return animation
+    }
+
+    private func strokeColorAnimation(from: UIColor, to: UIColor, duration: TimeInterval) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "strokeColor")
+        animation.duration = duration
+        animation.isRemovedOnCompletion = true
+        animation.fromValue = from.cgColor
+        animation.toValue = to.cgColor
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         return animation
     }
     

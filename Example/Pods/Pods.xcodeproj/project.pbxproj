@@ -15,6 +15,7 @@
 		A8B23EE447E2511BC7CFE24E194F4516 /* ANLongTapButton-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CB66CEAC99AF94625C7FCD67882A78 /* ANLongTapButton-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE0C27D1A08F115261A9D2A4CEFDF259 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		EFFED6D5829858696316DE9BF9BD1FDA /* ANLongTapButton-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AA396E6FC0895CB7964AADB789628777 /* ANLongTapButton-dummy.m */; };
+		FB379F432663B3CF00C0E617 /* UIColor+Interpolate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB379F422663B3CF00C0E617 /* UIColor+Interpolate.swift */; };
 		FDC24EB9A6F00F20F522DF33C710F8CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		E26D498B4B03548B88EF25D4F27CDDCE /* Pods-ANLongTapButton_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ANLongTapButton_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		EE06BEAEAEBD4AD48ECB3C936151694D /* ANLongTapButton-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ANLongTapButton-prefix.pch"; sourceTree = "<group>"; };
 		F43214B588045B56D6A1BE0F1F0B3E14 /* Pods-ANLongTapButton_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ANLongTapButton_Example-umbrella.h"; sourceTree = "<group>"; };
+		FB379F422663B3CF00C0E617 /* UIColor+Interpolate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Interpolate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				705D042D9426F78B6321A125BE025955 /* ANLongTapButton.swift */,
+				FB379F422663B3CF00C0E617 /* UIColor+Interpolate.swift */,
 				63C1B30C1D2E514229C49823101029D2 /* NSTimer+Closure.swift */,
 			);
 			path = Classes;
@@ -298,6 +301,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -338,6 +342,7 @@
 				EFFED6D5829858696316DE9BF9BD1FDA /* ANLongTapButton-dummy.m in Sources */,
 				787AB55E58A97D8F95C8E2801DE33498 /* ANLongTapButton.swift in Sources */,
 				35BC77234902953146BB300203D02D43 /* NSTimer+Closure.swift in Sources */,
+				FB379F432663B3CF00C0E617 /* UIColor+Interpolate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
