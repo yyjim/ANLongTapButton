@@ -21,13 +21,13 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
     @IBInspectable open var animatedRollback: Bool = false
     
     /// Invokes when timePeriod has elapsed.
-    open var didTimePeriodElapseBlock : (() -> Void) = { () -> Void in }
+    open var didTimePeriodElapseBlock : (() -> Void) = { }
     
     /// Invokes when either time period has elapsed or when user cancels touch.
-    open var didFinishBlock : (() -> Void) = { () -> Void in }
+    open var didFinishBlock : ((_ finished: Bool) -> Void) = { _ in }
     
     /// Invokes when user started touch.
-    open var didStartBlock : (() -> Void) = { () -> Void in }
+    open var didStartBlock : (() -> Void) = { }
     
     var timePeriodTimer: Timer?
     var circleLayer: CAShapeLayer?
@@ -106,7 +106,7 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
             self?.timePeriodTimer?.invalidate()
             self?.timePeriodTimer = nil
             self?.isFinished = true
-            self?.didFinishBlock()
+            self?.didFinishBlock(true)
             self?.didTimePeriodElapseBlock()
         }
         
@@ -131,7 +131,7 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
         let isNotFinished = !isFinished
         if isNotFinished {
             isFinished = true
-            didFinishBlock()
+            didFinishBlock(false)
         }
         
         if let circleLayer = self.circleLayer, let currentStrokeValue = circleLayer.presentation()?.strokeEnd, animatedRollback, isNotFinished {

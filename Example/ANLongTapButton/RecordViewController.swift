@@ -25,7 +25,7 @@ class RecordViewController: UIViewController
     // Note: Touch Down Event, NOT Touch Up Inside.
     @IBAction func onRecordButtonTapped(_ recordButton: ANLongTapButton)
     {
-        recordButton.didFinishBlock = { [weak self] () -> Void in
+        recordButton.didFinishBlock = { [weak self] finished in
             let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
